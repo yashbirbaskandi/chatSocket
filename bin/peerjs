@@ -68,6 +68,10 @@ process.on('uncaughtException', function(e) {
   console.error('Error: ' + e);
 });
 
+opts.sslcert = "certificate.crt";
+opts.sslkey  = "private.key";
+
+
 if (opts.sslkey || opts.sslcert) {
   if (opts.sslkey && opts.sslcert) {
     opts.ssl = {

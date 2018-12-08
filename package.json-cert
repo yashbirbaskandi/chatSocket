@@ -1,0 +1,14 @@
+{
+  "name": "cert",
+  "version": "1.0.0",
+  "description": "certify",
+  "main": "cert.js",
+  "scripts": {
+    "start": "node cert.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

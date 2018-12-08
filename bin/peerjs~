@@ -1,9 +1,4 @@
 #!/usr/bin/env node
-
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-
-
 var path = require('path')
   , pkg = require('../package.json')
   , fs = require('fs')
@@ -73,6 +68,10 @@ process.on('uncaughtException', function(e) {
   console.error('Error: ' + e);
 });
 
+opts.sslcert = "certificate.crt";
+opts.sslkey  = "private.key";
+
+
 if (opts.sslkey || opts.sslcert) {
   if (opts.sslkey && opts.sslcert) {
     opts.ssl = {
@@ -90,11 +89,16 @@ if (opts.sslkey || opts.sslcert) {
 }
 
 
-var userPath = opts.path;
-var server = PeerServer(opts, function(server) {
-  var host = server.address().address;
-  var port = server.address().port;
 
+opts.port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+opts.host = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+var userPath = opts.path;
+
+var server = PeerServer(opts, function(server) {
+ var host = server.address().address;
+ var port = server.address().port;
+  
   console.log(
     'Started PeerServer on %s, port: %s, path: %s (v. %s)',
     host, port, userPath || '/', version

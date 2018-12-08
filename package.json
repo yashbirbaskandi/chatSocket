@@ -1,14 +1,35 @@
 {
-  "name": "cert",
-  "version": "1.0.0",
-  "description": "certify",
-  "main": "cert.js",
-  "scripts": {
-    "start": "node cert.js"
+  "name": "peer",
+  "version": "0.2.9",
+  "description": "PeerJS server component",
+  "main": "lib/index.js",
+  "bin": {
+    "peerjs": "./bin/peerjs"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/peers/peerjs-server.git"
+  },
+  "author": "Michelle Bu, Eric Zhang",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "cors": "~2.8.4",
+    "express": "^4.16.3",
+    "optimist": "~0.6.1",
+    "serve-index": "^1.9.1",
+    "ws": "6.0.0"
+  },
+  "devDependencies": {
+    "expect.js": "*",
+    "sinon": "*",
+    "mocha": "*"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "test": "mocha test",
+    "start": "bin/peerjs --port ${PORT:=9000}"
   }
 }
