@@ -3,6 +3,8 @@ var bodyParser = require("body-parser");
 var WebSocketServer = require("ws").Server;
 var url = require("url");
 var cors = require("cors");
+var express = require("express");
+var serveIndex = require('serve-index');
 
 var app = (exports = module.exports = {});
 
@@ -156,16 +158,19 @@ app._checkKey = function(key, ip, cb) {
 /** Initialize HTTP server routes. */
 app._initializeHTTP = function() {
   var self = this;
+  
+this.use(express.static(__dirname+'/static', { dotfiles: 'allow' } ));
 
   this.use(cors());
 
+  
   this.get("/", function(req, res, next) {
     res.send(require("../app.json"));
   });
 
   // Retrieve guaranteed random ID.
   this.get("/:key/id", function(req, res, next) {
-    res.contentType = "text/html";
+    res.contentType = "text/plain";
     res.send(self._generateClientId(req.params.key));
   });
 
